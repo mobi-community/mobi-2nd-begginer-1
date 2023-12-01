@@ -12,7 +12,7 @@ https://lyrical-brain-e0f.notion.site/mobi-beginner-week-1-b3bc3c7613b846fca3938
 ### 페어-편성
 ```
 Pair-1: Kimi - Ann
-Pair-2: Danial - Lyn
+Pair-2: Danial - Rin
 Pair-3: Levi - Amy
 Pair-4: Jack - Noel
 ```
