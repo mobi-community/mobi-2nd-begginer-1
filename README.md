@@ -1,4 +1,4 @@
-# mobi-2th-bigginer-1
+# mobi-2th-begginer-1
 ### 1주차
 ```
 https://lyrical-brain-e0f.notion.site/mobi-beginner-week-1-b3bc3c7613b846fca39386b59d2551dc?pvs=4
