@@ -4,6 +4,11 @@
 https://lyrical-brain-e0f.notion.site/mobi-beginner-week-1-b3bc3c7613b846fca39386b59d2551dc?pvs=4
 ```
 
+### 기간
+```
+2023.12.02 ~ 2023.12.08
+```
+
 ### 페어-편성
 ```
 Pair-1: Kimi - Ann
