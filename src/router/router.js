@@ -1,12 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
-import AdminTogglePage from "../AdminTogglePage";
 import AfterDetailPage from "../Q3/one/after";
 import ModeTogglePage from "../Q3/two";
 import AfterLoginPage from "../Q3/three/after";
+import { ButtonPage } from "../Q3/four";
+import AdminTogglePage from "../AdminTogglePage";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/admin",
     element: <AdminTogglePage />,
   },
   {
@@ -20,6 +21,14 @@ const router = createBrowserRouter([
   {
     path: "/ex/3",
     element: <AfterLoginPage />,
+  },
+  {
+    path: "/ex/4",
+    element: <ButtonPage />,
+  },
+  {
+    path: "/admin",
+    element: <AdminTogglePage />,
   },
 ]);
 
