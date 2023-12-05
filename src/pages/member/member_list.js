@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { UserList } from "../__mock__/user_list";
+import { UserList } from "../../__mock__/user_list";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const ManageMember = () => {
+const MemberList = () => {
   /**
    * TODOLIST (12/07, Thu)
    * 1. DI - 기능별 컴포넌트화하기
@@ -182,7 +182,7 @@ const ManageMember = () => {
   );
 };
 
-export default ManageMember;
+export default MemberList;
 
 const Container = styled.div`
   display: flex;

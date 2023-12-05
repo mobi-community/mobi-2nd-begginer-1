@@ -1,15 +1,23 @@
 import { createBrowserRouter } from "react-router-dom";
+import Layout from "../layout/layout";
 import ManageMember from "../pages/manage_member";
-import ManageProduct from "../pages/manage_product";
+import ManageMembers from "../pages/member";
+import ManageProducts from "../pages/product";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <ManageMember />,
-  },
-  {
-    path: "/product",
-    element: <ManageProduct />,
+    element: <Layout />,
+    children: [
+      {
+        path: "/member",
+        element: <ManageMembers />,
+      },
+      {
+        path: "/product",
+        element: <ManageProducts />,
+      },
+    ],
   },
 ]);
 
