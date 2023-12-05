@@ -13,9 +13,6 @@ const generateRandomName = (num) => {
   return result;
 };
 
-let randomName = generateRandomName(3);
-console.log(randomName);
-
 // 랜덤으로 날짜를 생성해주는 로직 생년월일
 const getRandomData = (start, end) => {
   const startDate = start.getTime();
@@ -24,10 +21,10 @@ const getRandomData = (start, end) => {
   return new Date(startDate + Math.random() * (endDate - startDate));
 };
 const randomDate = getRandomData(new Date(1990, 1, 1), new Date());
-const year = randomDate.getFullYear();
-const month = randomDate.getMonth() + 1;
-const day = randomDate.getDay() + 1;
-const birthday = `${year}-${month}-${day}`;
+//const year = randomDate.getFullYear();
+//const month = randomDate.getMonth() + 1;
+//const day = randomDate.getDay() + 1;
+//const birthday = `${year}-${month}-${day}`;
 
 // 마지막 로그인
 const loginRandomDate = getRandomData(new Date(2020, 1, 1), new Date());
@@ -35,6 +32,7 @@ const loginYear = loginRandomDate.getFullYear();
 const loginMonth = loginRandomDate.getMonth() + 1;
 const loginDay = loginRandomDate.getDay() + 1;
 const lastLogin = `${loginYear}-${loginMonth}-${loginDay}`;
+
 
 // 핸드폰 번호
 const generatePhoneNumber = (num) => {
@@ -50,15 +48,19 @@ const generatePhoneNumber = (num) => {
 
 let randomiddleNumber = generatePhoneNumber(4);
 let randomEndNumber = generatePhoneNumber(4);
-//console.log(`010-${randomiddleNumber}-${randomEndNumber}`);
-const ph = `010-${randomiddleNumber}-${randomEndNumber}`;
+//const ph = `010-${randomiddleNumber}-${randomEndNumber}`;
 
 export const userList = Array(200)
   .fill()
   .map((_, i) => ({
     id: i + 1,
-    name: randomName,
-    birth: birthday,
-    phone: ph,
-    lastestlogin: lastLogin,
+    name: generateRandomName(3),
+    birth:`${getRandomData(new Date(1990, 1, 1), new Date(2000,12,31)).getFullYear()}-${getRandomData(new Date(1990, 1, 1), new Date(2000,12,31)).getMonth() + 1}-${getRandomData(new Date(1990, 1, 1), new Date(2000,12,31)).getDate()}`,
+    phone: `010-****-${generatePhoneNumber(4)}`,
+    lastestlogin: `${getRandomData(new Date(2023, 1, 1), new Date()).getFullYear()}년 ${getRandomData(new Date(2023, 1, 1), new Date()).getMonth() + 1}월 ${getRandomData(new Date(2023, 1, 1), new Date()).getDate()}일 ${getRandomData(new Date(2023, 1, 1), new Date()).getHours()}:${getRandomData(new Date(2023, 1, 1), new Date()).getMinutes()}:${getRandomData(new Date(2023, 1, 1), new Date()).getSeconds()}:${getRandomData(new Date(2023, 1, 1), new Date()).getMilliseconds()}`,
   }));
+
+  //Date.prototype.getHours()
+  //Date.prototype.getMinutes()
+  //Date.prototype.getSeconds()
+  //Date.prototype.getMilliseconds()
