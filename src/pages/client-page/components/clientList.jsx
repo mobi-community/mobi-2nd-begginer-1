@@ -2,9 +2,6 @@ import styled from 'styled-components';
 import { MockUsersData } from '../../../__mock__/faker-data';
 import { useState } from 'react';
 import Pagination from '../../../components/pagination';
-import useLocalStorage from '../../../hooks/hooks';
-import { useParams } from 'react-router-dom';
-import useQueryString from '../../../hooks/hooks';
 import FilterPage from '../../../components/filter';
 
 const ClientList = () => {
@@ -20,15 +17,6 @@ const ClientList = () => {
     // 페이지의 첫 게시물의 위치를 담음 / user
     const offset = (currentPage - 1) * usersPerPage;
     // {}: 객체에서 page라는 ㅇ이름을 가진ㄴ 애를 가져오겠다.
-    const { page } = useQueryString();
-    // LocalStorage를 useQueryString으로 대체하기 ?page=5부터 시작됨!
-    // Tip:
-    console.log(`page`, { page });
-
-    // const history = useHistory();
-    // // history = url을 관리하는친ㄱ누
-
-    // const onClickPage = (page) => history.push(`/?page=${page}`)
 
     return (
         <S.Wrapper>
@@ -63,6 +51,7 @@ const ClientList = () => {
                 usersPerPage={usersPerPage}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
+                limit={5}
             />
         </S.Wrapper>
     );
