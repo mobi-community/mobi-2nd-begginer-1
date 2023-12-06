@@ -24,73 +24,91 @@ const Filtering = ({ sortedList, setSortedList, userList }) => {
   };
 
   const sortBy = searchParams.get("sortBy") || "name";
-
   const orderBy = searchParams.get("orderBy") || "ascend";
 
+  const currentPage = searchParams.get("page") || 1;
+  const perPage = searchParams.get("perPage") || 20;
+
+  //데이터 나누기
+
+  //현재 페이지에 보이는 콘텐츠 리스트
+  // const userListData = userList.slice(currentFirstIndex, currentLastIndex);
+
+  const sliceDataByPerPage = (list) => {
+    const currentFirstIndex = (currentPage - 1) * perPage;
+    const currentLastIndex = currentPage * perPage;
+    const slicedData = list.slice(currentFirstIndex, currentLastIndex);
+    return slicedData;
+  };
+
   useEffect(() => {
-    if (userList) {
-      if (sortBy === "name") {
-        console.log("이름 정렬");
-        SortByName();
-      } else if (sortBy === "recentLogin") {
-        console.log("로그인 정렬");
-        sortByLastLoginDate();
-      } else {
-        console.log("생일 정렬");
-        sortByBirthDate();
-      }
+    if (sortBy === "name") {
+      console.log("이름 정렬");
+      SortByName();
+    } else if (sortBy === "recentLogin") {
+      console.log("로그인 정렬");
+      sortByLastLoginDate();
+    } else {
+      console.log("생일 정렬");
+      sortByBirthDate();
     }
   }, [searchParams]);
 
   // 이름 순
   const SortByName = () => {
+    let nameList;
     if (orderBy === "ascend") {
-      const sortedList = userList.sort((a, b) => a.name.localeCompare(b.name));
-      setSortedList(sortedList);
+      nameList = userList.sort((a, b) => a.name.localeCompare(b.name));
     } else {
-      const sortedList = userList.sort((a, b) => b.name.localeCompare(a.name));
-      setSortedList(sortedList);
+      nameList = userList.sort((a, b) => b.name.localeCompare(a.name));
     }
+    setSortedList(nameList);
+    const slicedData = sliceDataByPerPage(nameList);
+    setSortedList(slicedData);
   };
 
   // 마지막 로그인 순
   const sortByLastLoginDate = () => {
+    let lastLoginDateList;
     if (orderBy === "ascend") {
-      console.log("sort 이전 -> ", userList);
-      const lastLoginDateList = userList.sort((a, b) => {
+      lastLoginDateList = userList.sort((a, b) => {
         const aDate = new Date(a.lastLoginDate);
         const bDate = new Date(b.lastLoginDate);
         return aDate - bDate;
       });
-      console.log("sort 이후 -> ", lastLoginDateList);
       setSortedList(lastLoginDateList);
     } else {
-      const lastLoginDateList = userList.sort((a, b) => {
+      lastLoginDateList = userList.sort((a, b) => {
         const aDate = new Date(a.lastLoginDate);
         const bDate = new Date(b.lastLoginDate);
         return bDate - aDate;
       });
       setSortedList(lastLoginDateList);
     }
+    const slicedData = sliceDataByPerPage(lastLoginDateList);
+    setSortedList(slicedData);
   };
 
   //생년월일 순
   const sortByBirthDate = () => {
+    let birthDateList;
     if (orderBy === "ascend") {
-      const sortedList = userList.sort((a, b) => {
+      birthDateList = userList.sort((a, b) => {
         const aDate = new Date(a.birthDate);
         const bDate = new Date(b.birthDate);
         return aDate - bDate;
       });
-      setSortedList(sortedList);
+      setSortedList(birthDateList);
     } else {
-      const sortedList = userList.sort((a, b) => {
+      birthDateList = userList.sort((a, b) => {
         const aDate = new Date(a.birthDate);
         const bDate = new Date(b.birthDate);
         return bDate - aDate;
       });
-      setSortedList(sortedList);
+      setSortedList(birthDateList);
     }
+    const slicedData = sliceDataByPerPage(birthDateList);
+    setSortedList(slicedData);
   };
 
   return (

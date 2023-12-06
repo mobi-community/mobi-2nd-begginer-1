@@ -11,10 +11,6 @@ const AdminTogglePage = () => {
   const pagesPerGroup = 5;
   const [sortedList, setSortedList] = useState(userList);
 
-  useEffect(() => {
-    console.log("sortedList", sortedList);
-  }, [sortedList]);
-
   //sortBy
 
   //데이터를 가공 => userTable props로 전달
