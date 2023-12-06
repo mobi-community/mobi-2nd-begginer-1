@@ -9,11 +9,12 @@
 import { useSearchParams } from "react-router-dom";
 
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const Pagination = ({ userList }) => {
-  const navigate = useNavigate();
+const Pagination = ({ totalLength, pagesPerGroup }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentPageNum = searchParams.get("page");
+  const perPage = searchParams.get("perPage") || 20;
 
   //필요한 변수 지정
   //총 콘텐츠 개수 : totalContentsLength = 200
@@ -21,49 +22,54 @@ const Pagination = ({ userList }) => {
   //총 페이지 개수 = 마지막 페이지 개수 : lastPage = 10
   //현재 페이지 : currentPage = 1 ~ 10
 
-  const totalContentsLength = userList.length;
-  const contentPerPage = 20;
-  const totalPage = totalContentsLength / contentPerPage;
+  // const contentPerPage = 20;
+  const totalPage = totalLength / perPage;
+  console.log("totalLength", totalLength);
+  console.log("perPage", perPage);
+
+  console.log("totalPage", totalPage);
 
   //:id => 파라미터 => 라우터에 설정이 필요
   //?page=12 => 쿼리스트링 => url에 포함x => 라우터 관련 없음
   //useSearchParams => 쿼리스트링 추출 {page : 12 }
-  const [serchParams, setSearchParams] = useSearchParams();
+
+  //현재 페이지 => 1 ~ 5 => 1그룹
+  //            6 ~ 10 => 2그룹
 
   const [currentPage, setCurrentPage] = useState(1);
-
-  //?page=1
-  //?page=2
 
   //그룹
   //현재 페이지 그룹 : currentGroup
   //한 그룹당 보여줄 페이지 개수 : pagesPerGroup = 5
   //총 페이지 그룹 개수 : 총 페이지 개수 / 한 그룹당 보여줄 페이지 개수 = 2
-  const pagesPerGroup = 5;
+  // const pagesPerGroup = 5;
   const [currentGroup, setCurrentGroup] = useState(1);
-  const lastGroup = totalPage / pagesPerGroup;
+  const lastGroup = Math.ceil(totalPage / pagesPerGroup);
+
   //[1,2,3,4,5] => 1그룹
   //[6,7,8,9,10] => 2그룹
 
   //처음 페이지 이동 함수
   const onMoveStartPage = () => {
     setCurrentPage(1);
-    setCurrentGroup(1);
-    navigate(`/admin?page=1`);
+    searchParams.set("page", 1);
+    setSearchParams(searchParams);
   };
 
   //마지막 페이지 이동 함수
   const onMoveLastPage = () => {
     setCurrentPage(totalPage);
-    setCurrentGroup(lastGroup);
-    navigate(`/admin?page=${totalPage}`);
+    searchParams.set("page", totalPage);
+    setSearchParams(searchParams);
   };
 
   //뒤로 가기 함수
   const onMoveNextPage = () => {
     if (currentPage !== totalPage) {
       setCurrentPage((prev) => prev + 1);
-      navigate(`/admin?page=${currentPage + 1}`);
+      const nextPage = currentPage + 1;
+      searchParams.set("page", nextPage);
+      setSearchParams(searchParams);
     }
   };
 
@@ -71,34 +77,49 @@ const Pagination = ({ userList }) => {
   const onMovePrevPage = () => {
     if (currentPage !== 1) {
       setCurrentPage((prev) => prev - 1);
-      navigate(`/admin?page=${currentPage - 1}`);
+      const prevPage = currentPage - 1;
+      searchParams.set("page", prevPage);
+      setSearchParams(searchParams);
     }
   };
+
+  //페이지 그룹을 바꿔주는 함수 => 현재 페이지가 바뀔 때마다 실행
+  useEffect(() => {
+    const newCurrentGroup = Math.ceil(currentPage / pagesPerGroup);
+    setCurrentGroup(newCurrentGroup);
+  }, [currentPage]);
 
   //해당 페이지로 이동하는 함수
   const onMoveTargetPage = (pageNumber) => {
     setCurrentPage(pageNumber);
-    navigate(`/admin?page=${pageNumber}`);
+    searchParams.set("page", pageNumber);
+    setSearchParams(searchParams);
   };
 
   return (
     <S.Wrapper>
-      <button onClick={onMoveStartPage}>≪</button>
-      <button onClick={onMovePrevPage}>＜</button>
+      <S.Button onClick={onMoveStartPage}>≪</S.Button>
+      <S.Button onClick={onMovePrevPage}>＜</S.Button>
       {/*버튼들 현재 그룹 => 해당 버튼들만 보여주기*/}
-      {Array(pagesPerGroup)
+      {Array(totalPage)
         .fill()
-        .map((el, idx) => (
-          <button
-            onClick={() => {
-              onMoveTargetPage((currentGroup - 1) * pagesPerGroup + idx + 1);
-            }}
-          >
-            {(currentGroup - 1) * pagesPerGroup + idx + 1}
-          </button>
-        ))}
-      <button onClick={onMoveNextPage}>＞</button>
-      <button onClick={onMoveLastPage}>≫</button>
+        .map((el, idx) => {
+          const pageNumber = (currentGroup - 1) * pagesPerGroup + idx + 1;
+          const isFocus = pageNumber === currentPage;
+
+          return (
+            <S.Button
+              onClick={() => {
+                onMoveTargetPage(pageNumber);
+              }}
+              isFocus={isFocus}
+            >
+              {pageNumber}
+            </S.Button>
+          );
+        })}
+      <S.Button onClick={onMoveNextPage}>＞</S.Button>
+      <S.Button onClick={onMoveLastPage}>≫</S.Button>
     </S.Wrapper>
   );
 };
@@ -109,6 +130,11 @@ const Wrapper = styled.div`
   height: 100px;
 `;
 
+const Button = styled.button`
+  background-color: ${({ isFocus }) => (isFocus ? "red" : "white")};
+`;
+
 export const S = {
   Wrapper,
+  Button,
 };

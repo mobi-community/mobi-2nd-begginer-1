@@ -4,8 +4,13 @@ import ModeTogglePage from "../Q3/two";
 import AfterLoginPage from "../Q3/three/after";
 import { ButtonPage } from "../Q3/four";
 import AdminTogglePage from "../AdminTogglePage";
+import MainPage from "../MainPage";
 
 const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <MainPage />,
+  },
   {
     path: "/admin",
     element: <AdminTogglePage />,
@@ -25,10 +30,6 @@ const router = createBrowserRouter([
   {
     path: "/ex/4",
     element: <ButtonPage />,
-  },
-  {
-    path: "/admin",
-    element: <AdminTogglePage />,
   },
 ]);
 

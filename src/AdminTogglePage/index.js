@@ -1,14 +1,23 @@
-import Pagination from "./components/Pagination";
 import UserTable from "./components/UserTable";
 import { userData } from "../data/user";
+import Pagination from "./components/Pagination";
+import Filtering from "./components/Filtering";
+import { useSearchParams } from "react-router-dom";
 
 const AdminTogglePage = () => {
   const userList = userData(200);
+  const totalLength = userList.length;
+  // 페이지네이션 버튼 그룹당 페이지 수
+  const pagesPerGroup = 5;
+
+  //데이터를 가공 => userTable props로 전달
+  //필터링된 기준으로 데이터 정렬, 자르기
 
   return (
     <>
+      <Filtering />
       <UserTable userList={userList} />
-      <Pagination userList={userList} />
+      <Pagination totalLength={totalLength} pagesPerGroup={pagesPerGroup} />
     </>
   );
 };
