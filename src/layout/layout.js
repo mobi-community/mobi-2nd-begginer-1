@@ -16,7 +16,8 @@ const Layout = () => {
 export default Layout;
 const Wrapper = styled.div`
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
+  height: fit-content;
   display: flex;
   align-items: center;
   flex-direction: column;

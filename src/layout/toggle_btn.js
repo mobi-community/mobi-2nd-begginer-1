@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import member from "../images/user.png";
 import product from "../images/package.png";
@@ -13,22 +13,20 @@ const ToggleButton = () => {
     setIsRight(!isRight);
   };
 
-  // toggle 버튼이 클릭 되면 방향에 따라 member 또는 product 페이지가 나오도록 구성
+  useEffect(() => {
+    if (isRight) {
+      navigate("/manage/member");
+    } else {
+      navigate("/manage/product");
+    }
+  }, [isRight]);
 
   return (
     <Container onClick={toggleHandler}>
       <Background className={` ${isRight ? "toggle--checked" : null}`}>
-        <Toggle className={` ${isRight ? "toggle--checked" : null}`}>
-          {isRight ? <img src={member} /> : <img src={product} />}
-        </Toggle>
+        <Toggle className={` ${isRight ? "toggle--checked" : null}`}>{isRight ? <img src={member} /> : <img src={product} />}</Toggle>
       </Background>
-      <Content>
-        {isRight ? (
-          <div onClick={() => navigate("/manage/member")}></div>
-        ) : (
-          <div onClick={() => navigate("/manage/product")}></div>
-        )}
-      </Content>
+      <Content>{isRight ? <div onClick={() => navigate("/manage/member")}></div> : <div onClick={() => navigate("/manage/product")}></div>}</Content>
     </Container>
   );
 };
@@ -78,8 +76,5 @@ const Toggle = styled.div`
   }
 `;
 const Content = styled.div`
-  border: 1px solid #333;
-  margin-top: 60px;
-  min-width: 80vw;
-  min-height: 60vh;
+  margin-top: 50px;
 `;
