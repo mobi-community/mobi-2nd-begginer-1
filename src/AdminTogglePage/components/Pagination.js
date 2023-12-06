@@ -13,8 +13,9 @@ import styled from "styled-components";
 
 const Pagination = ({ totalLength, pagesPerGroup }) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const currentPageNum = searchParams.get("page");
-  const perPage = searchParams.get("perPage") || 20;
+
+  const perPage = Number(searchParams.get("perPage")) || 20;
+  const page = Number(searchParams.get("page")) || 1;
 
   //필요한 변수 지정
   //총 콘텐츠 개수 : totalContentsLength = 200
@@ -24,11 +25,6 @@ const Pagination = ({ totalLength, pagesPerGroup }) => {
 
   // const contentPerPage = 20;
   const totalPage = totalLength / perPage;
-  console.log("totalLength", totalLength);
-  console.log("perPage", perPage);
-
-  console.log("totalPage", totalPage);
-
   //:id => 파라미터 => 라우터에 설정이 필요
   //?page=12 => 쿼리스트링 => url에 포함x => 라우터 관련 없음
   //useSearchParams => 쿼리스트링 추출 {page : 12 }
@@ -36,7 +32,7 @@ const Pagination = ({ totalLength, pagesPerGroup }) => {
   //현재 페이지 => 1 ~ 5 => 1그룹
   //            6 ~ 10 => 2그룹
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(page);
 
   //그룹
   //현재 페이지 그룹 : currentGroup
@@ -44,6 +40,7 @@ const Pagination = ({ totalLength, pagesPerGroup }) => {
   //총 페이지 그룹 개수 : 총 페이지 개수 / 한 그룹당 보여줄 페이지 개수 = 2
   // const pagesPerGroup = 5;
   const [currentGroup, setCurrentGroup] = useState(1);
+
   const lastGroup = Math.ceil(totalPage / pagesPerGroup);
 
   //[1,2,3,4,5] => 1그룹
@@ -52,24 +49,17 @@ const Pagination = ({ totalLength, pagesPerGroup }) => {
   //처음 페이지 이동 함수
   const onMoveStartPage = () => {
     setCurrentPage(1);
-    searchParams.set("page", 1);
-    setSearchParams(searchParams);
   };
 
   //마지막 페이지 이동 함수
   const onMoveLastPage = () => {
     setCurrentPage(totalPage);
-    searchParams.set("page", totalPage);
-    setSearchParams(searchParams);
   };
 
   //뒤로 가기 함수
   const onMoveNextPage = () => {
     if (currentPage !== totalPage) {
       setCurrentPage((prev) => prev + 1);
-      const nextPage = currentPage + 1;
-      searchParams.set("page", nextPage);
-      setSearchParams(searchParams);
     }
   };
 
@@ -77,9 +67,6 @@ const Pagination = ({ totalLength, pagesPerGroup }) => {
   const onMovePrevPage = () => {
     if (currentPage !== 1) {
       setCurrentPage((prev) => prev - 1);
-      const prevPage = currentPage - 1;
-      searchParams.set("page", prevPage);
-      setSearchParams(searchParams);
     }
   };
 
@@ -87,13 +74,17 @@ const Pagination = ({ totalLength, pagesPerGroup }) => {
   useEffect(() => {
     const newCurrentGroup = Math.ceil(currentPage / pagesPerGroup);
     setCurrentGroup(newCurrentGroup);
+    searchParams.set("page", currentPage);
+    setSearchParams(searchParams);
   }, [currentPage]);
+
+  useEffect(() => {
+    setCurrentPage(page);
+  }, [page]);
 
   //해당 페이지로 이동하는 함수
   const onMoveTargetPage = (pageNumber) => {
     setCurrentPage(pageNumber);
-    searchParams.set("page", pageNumber);
-    setSearchParams(searchParams);
   };
 
   return (
@@ -101,11 +92,14 @@ const Pagination = ({ totalLength, pagesPerGroup }) => {
       <S.Button onClick={onMoveStartPage}>≪</S.Button>
       <S.Button onClick={onMovePrevPage}>＜</S.Button>
       {/*버튼들 현재 그룹 => 해당 버튼들만 보여주기*/}
-      {Array(totalPage)
+      {Array(pagesPerGroup) //5
         .fill()
         .map((el, idx) => {
           const pageNumber = (currentGroup - 1) * pagesPerGroup + idx + 1;
-          const isFocus = pageNumber === currentPage;
+          const isFocus = pageNumber === page;
+
+          // data가 없으면 얼리 리턴으로 버튼 생성 X
+          if (totalLength <= perPage * idx) return;
 
           return (
             <S.Button

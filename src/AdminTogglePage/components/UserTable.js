@@ -12,7 +12,7 @@ const UserTable = ({ userList }) => {
   const perPage = searchParams.get("perPage") || 20;
   //sortBy
   const sortBy = searchParams.get("sortBy") || "name";
-  console.log("sortBy ->", sortBy);
+
   //orderBy
   const orderBy = searchParams.get("orderBy") || "ascend";
 
@@ -28,7 +28,14 @@ const UserTable = ({ userList }) => {
   return (
     <>
       <table>
-        {userListData.map((user) => {
+        <tr>
+          <td>아이디</td>
+          <td>이름</td>
+          <td>생년월일</td>
+          <td>핸드폰 번호</td>
+          <td>마지막 로그인 날짜</td>
+        </tr>
+        {userListData.map((user, index) => {
           return <OneUser key={user.id} user={user} />;
         })}
       </table>
