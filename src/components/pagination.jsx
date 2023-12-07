@@ -1,8 +1,7 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
-import useQueryString from '../hooks/hooks';
 
-const Pagination = ({ totalUsers, usersPerPage, currentPage, setCurrentPage, limit }) => {
+const Pagination = ({ totalUsers, usersPerPage, currentPage, setCurrentPage, limit}) => {
     // 전체 게시물에 따라 필요한 페이지수 계산
     const numOfPages = Math.ceil(totalUsers / usersPerPage);
     // Array 인스턴스의 fill() 메서드는 배열의 인덱스 범위 내에 있는 모든 요소를 정적 값으로 변경. 그리고 수정된 배열을 반환
@@ -10,13 +9,14 @@ const Pagination = ({ totalUsers, usersPerPage, currentPage, setCurrentPage, lim
     let totalButtons = new Array(numOfPages).fill(null);
     totalButtons = totalButtons.map((_, index) => index + 1);
     const navigate = useNavigate();
-    // const [searchParams, setSearchParams] = useSearchParams();
 
-    const [searchParams, setSearchParams] = useSearchParams();
-    const page = searchParams.get('currentPage');
     // 새로고침시 유지.. 어떻게 하는 건데.....
+    /**
+     * 왜 1페이지로 가지냐..?
+     * 방향성이..
+     * function 최소한의 일만해야함
+     */
 
-    console.log(`params`, page);
 
     const onGoStartPage = () => {
         setCurrentPage(1);
@@ -37,6 +37,11 @@ const Pagination = ({ totalUsers, usersPerPage, currentPage, setCurrentPage, lim
         setCurrentPage(10);
         navigate(`/?page=10`);
     };
+
+    const onSetPageNumber = (pageNumber) => {
+        setCurrentPage(pageNumber);
+        navigate(`/?page=${pageNumber}`);
+    };
     return (
         <>
             <S.Button type="button" onClick={onGoStartPage} disabled={currentPage === 1}>
@@ -52,7 +57,7 @@ const Pagination = ({ totalUsers, usersPerPage, currentPage, setCurrentPage, lim
                     isCurrent={pageNumber === currentPage}
                     // onClickPage = setCurrentPage pageNumber가 binding된다.
                     // url주소로 바꾸는 함수로 바껴야함.... setCurrentPage가 아니다...
-                    onClick={() => setCurrentPage(pageNumber)}
+                    onClick={() => onSetPageNumber(pageNumber)}
                 >
                     {pageNumber}
                 </S.Button>
