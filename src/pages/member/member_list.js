@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PagiNation from "../../components/pagination";
 import Filter from "../../components/filter";
+import { AlignCenter, FlexCenter } from "../../styles/common.style";
 
 const MemberList = () => {
   const [users, setUsers] = useState(UserList());
@@ -13,13 +14,24 @@ const MemberList = () => {
   const totalPage = Math.ceil(users.length / userPerPage);
   const pageNationUserList = [];
   for (let i = 0; i < totalPage; i++) {
-    pageNationUserList.push([users.slice(userPerPage * i, userPerPage * (i + 1))]);
+    pageNationUserList.push([
+      users.slice(userPerPage * i, userPerPage * (i + 1)),
+    ]);
   }
-  const [userListPerPage, setUserListPerPage] = useState(pageNationUserList[currentPage - 1]);
+  const [userListPerPage, setUserListPerPage] = useState(
+    pageNationUserList[currentPage - 1]
+  );
 
   return (
     <Container>
-      <Filter users={users} setUsers={setUsers} setUserPerPage={setUserPerPage} setButtonArray={setButtonArray} setCurrentPage={setCurrentPage} />
+      <Filter
+        users={users}
+        setUsers={setUsers}
+        setUserPerPage={setUserPerPage}
+        setButtonArray={setButtonArray}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
       <Table>
         <thead>
           <tr>
@@ -61,24 +73,25 @@ const MemberList = () => {
 export default MemberList;
 
 const Container = styled.div`
-  display: flex;
-  justify-content: center;
+  ${AlignCenter}
   flex-direction: column;
+  width: 1000px;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.02);
+  box-shadow: 15px 15px 15px 5px rgba(0, 0, 0, 0.3);
+  margin-bottom: 100px;
 `;
 
 // member table
 const Table = styled.table`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${FlexCenter}
   flex-direction: column;
 
   & > tbody {
-    flex-direction: row;
   }
 `;
 const Th = styled.th`
-  padding: 10px;
+  padding: 10px 20px;
 `;
 const Td = styled.td`
   padding: 10px;

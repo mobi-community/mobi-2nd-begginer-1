@@ -5,6 +5,21 @@ import member from "../images/user.png";
 import product from "../images/package.png";
 
 const ToggleButton = () => {
+  /**
+   * TODOLIST
+   *
+   * [ 컴포넌트 구조 나누기에 대하여 생각해보기 ]
+   * - pagination props 전달 너무 많음
+   * - buttonArray 재사용 가능하게 깔끔하게 바꾸기
+   *
+   * - filter UI가 페이지네이션 버튼 클릭해야 적용이 되는 부분 고치기
+   *
+   * [ 뒤로가기 버튼 ]
+   * - pagination 뒤로가기 클릭 시 UI 변경 안 됨
+   * - toggle 뒤로가기 클릭 시 UI 변경 안 됨
+   *
+   */
+
   const navigate = useNavigate();
 
   const [isRight, setIsRight] = useState(false);
@@ -24,9 +39,17 @@ const ToggleButton = () => {
   return (
     <Container onClick={toggleHandler}>
       <Background className={` ${isRight ? "toggle--checked" : null}`}>
-        <Toggle className={` ${isRight ? "toggle--checked" : null}`}>{isRight ? <img src={member} /> : <img src={product} />}</Toggle>
+        <Toggle className={` ${isRight ? "toggle--checked" : null}`}>
+          {isRight ? <img src={member} /> : <img src={product} />}
+        </Toggle>
       </Background>
-      <Content>{isRight ? <div onClick={() => navigate("/manage/member")}></div> : <div onClick={() => navigate("/manage/product")}></div>}</Content>
+      <Content>
+        {isRight ? (
+          <div onClick={() => navigate("/manage/member")}></div>
+        ) : (
+          <div onClick={() => navigate("/manage/product")}></div>
+        )}
+      </Content>
     </Container>
   );
 };

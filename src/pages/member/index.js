@@ -3,9 +3,10 @@ import MemberList from "./member_list";
 import RegisterMember from "./register_member";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { TabButton } from "../../styles/common.style";
 
 const ManageMembers = () => {
-  const [currentTab, setCurrentTab] = useState(1);
+  const [currentTab, setCurrentTab] = useState(0);
   const navigate = useNavigate();
 
   const tabs = [
@@ -15,7 +16,6 @@ const ManageMembers = () => {
 
   const selectedTab = (index) => {
     setCurrentTab(index);
-    console.log(index);
     // if (index === 1) {
     //   navigate("/manage?register-member");
     // }
@@ -25,7 +25,11 @@ const ManageMembers = () => {
     <Wrapper>
       <Tabs>
         {tabs.map((tab, index) => (
-          <li className={index === currentTab ? "tab focused" : "tab"} onClick={() => selectedTab(index)} key={index}>
+          <li
+            className={index === currentTab ? "tab focused" : "tab"}
+            onClick={() => selectedTab(index)}
+            key={index}
+          >
             {tab.name}
           </li>
         ))}
@@ -37,30 +41,13 @@ const ManageMembers = () => {
 
 export default ManageMembers;
 
-const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  color: #555;
-`;
+const Wrapper = styled.div``;
+
 const Tabs = styled.ul`
-  font-weight: bold;
-  flex-wrap: wrap;
-  cursor: pointer;
-  list-style: none;
-  display: flex;
-  flex-direction: row;
-
+  ${TabButton}
   .tab {
-    margin: 0 10px;
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid #555;
-
-    .focused {
-      background-color: navy;
-      color: white;
+    &.focused {
+      background-color: #ccccff;
     }
   }
 `;

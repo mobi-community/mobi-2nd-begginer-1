@@ -4,9 +4,10 @@ import { useState } from "react";
 import ProductList from "./product_list";
 import RegisterProduct from "./register_product";
 import { useNavigate } from "react-router-dom";
+import { TabButton } from "../../styles/common.style";
 
 const ManageProducts = () => {
-  const [currentTab, setCurrentTab] = useState(1);
+  const [currentTab, setCurrentTab] = useState(0);
   const navigate = useNavigate();
 
   const tabs = [
@@ -26,7 +27,11 @@ const ManageProducts = () => {
     <Wrapper>
       <Tabs>
         {tabs.map((tab, index) => (
-          <li className={index === currentTab ? "tab focused" : "tab"} onClick={() => selectedTab(index)} key={index}>
+          <li
+            className={index === currentTab ? "tab focused" : "tab"}
+            onClick={() => selectedTab(index)}
+            key={index}
+          >
             {tab.name}
           </li>
         ))}
@@ -38,26 +43,14 @@ const ManageProducts = () => {
 
 export default ManageProducts;
 
-const Wrapper = styled.div`
-  color: #555;
-`;
+const Wrapper = styled.div``;
+
 const Tabs = styled.ul`
-  font-weight: bold;
-  flex-wrap: wrap;
-  cursor: pointer;
-  list-style: none;
-  display: flex;
-  flex-direction: row;
+  ${TabButton}
 
   .tab {
-    margin: 0 10px;
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid #555;
-
-    .focused {
-      background-color: navy;
-      color: white;
+    &.focused {
+      background-color: #40e0d0;
     }
   }
 `;

@@ -3,20 +3,19 @@ import { useNavigate } from "react-router-dom";
 import { UserList } from "../__mock__/user_list";
 import styled from "styled-components";
 
-const PagiNation = ({ users, buttonArray, setButtonArray, currentPage, setCurrentPage, userPerPage, setUserPerPage, totalPage, pageNationUserList, setUserListPerPage }) => {
-  /**
-   * TODOLIST
-   * - pagination props 전달 너무 많음
-   * - buttonArray 재사용 가능하게 깔끔하게 바꾸기
-   * - filter UI가 페이지네이션 버튼 클릭해야 적용이 되는 부분 고치기
-   * - pagination 뒤로가기 클릭 시 UI 변경 안 됨
-   * - toggle 뒤로가기 클릭 시 UI 변경 안 됨
-   */
-
-  // new Array(limit), (x, i) => i)
-
+const PagiNation = ({
+  users,
+  buttonArray,
+  setButtonArray,
+  currentPage,
+  setCurrentPage,
+  userPerPage,
+  setUserPerPage,
+  totalPage,
+  pageNationUserList,
+  setUserListPerPage,
+}) => {
   const navigate = useNavigate();
-
   // "<<" 버튼 클릭
   const handleFirst = () => {
     if (userPerPage === 50) {
@@ -32,7 +31,13 @@ const PagiNation = ({ users, buttonArray, setButtonArray, currentPage, setCurren
     if (userPerPage === 50) setCurrentPage(4);
     // totalPage = 2 -> [0,1] , totalPage = 3 -> [0,1,2]
     if (totalPage < 5) return setButtonArray([0, 1, 2, 3]);
-    setButtonArray([totalPage - 5, totalPage - 4, totalPage - 3, totalPage - 2, totalPage - 1]);
+    setButtonArray([
+      totalPage - 5,
+      totalPage - 4,
+      totalPage - 3,
+      totalPage - 2,
+      totalPage - 1,
+    ]);
     setCurrentPage(totalPage);
   };
 
@@ -58,7 +63,14 @@ const PagiNation = ({ users, buttonArray, setButtonArray, currentPage, setCurren
       }
       return value + 1;
     });
-    if (nextPage[nextPage.length - 1] > totalPage - 1) return [totalPage - 5, totalPage - 4, totalPage - 3, totalPage - 2, totalPage - 1];
+    if (nextPage[nextPage.length - 1] > totalPage - 1)
+      return [
+        totalPage - 5,
+        totalPage - 4,
+        totalPage - 3,
+        totalPage - 2,
+        totalPage - 1,
+      ];
     setButtonArray(nextPage);
   };
 
@@ -80,7 +92,8 @@ const PagiNation = ({ users, buttonArray, setButtonArray, currentPage, setCurren
         <NumberButton
           onClick={() => handlePages(pageButton)}
           style={{
-            backgroundColor: currentPage === pageButton + 1 ? "#ccccff" : "#121212",
+            backgroundColor:
+              currentPage === pageButton + 1 ? "#ccccff" : "#121212",
           }}
         >
           {pageButton + 1}

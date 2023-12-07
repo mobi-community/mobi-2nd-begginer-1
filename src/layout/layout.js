@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import ToggleButton from "./toggle_btn";
 import styled from "styled-components";
+import { AlignCenter } from "../styles/common.style";
 
 const Layout = () => {
   return (
@@ -18,10 +19,17 @@ const Wrapper = styled.div`
   width: 100vw;
   min-height: 100vh;
   height: fit-content;
-  display: flex;
-  align-items: center;
+  ${AlignCenter}
   flex-direction: column;
   background-color: #121212;
+
+  & > div:last-of-type {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #555;
+  }
 `;
 const Title = styled.h1`
   letter-spacing: 5px;
