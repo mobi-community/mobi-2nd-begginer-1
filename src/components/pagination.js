@@ -4,13 +4,11 @@ import { UserList } from "../__mock__/user_list";
 import styled from "styled-components";
 
 const PagiNation = ({
-  users,
   buttonArray,
   setButtonArray,
   currentPage,
   setCurrentPage,
   userPerPage,
-  setUserPerPage,
   totalPage,
   pageNationUserList,
   setUserListPerPage,

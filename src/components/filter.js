@@ -13,11 +13,23 @@ const Filter = ({
 }) => {
   // 뒤로가기
   const navigate = useNavigate();
+
+  // const [param, setParam] = useSearchParams();
+  // const sortBy = param.get("sort");
+  // const sortAs = param.get("isAscend");
+  // console.log("param값은?", sortBy, sortAs);
+
+  // const [sortMethod, setSortMethod] = useState("null");
+  // const [isAscend, setIsAscend] = useState("null");
+
   const [param, setParam] = useSearchParams();
-  const keyword = param.get("sort");
-  console.log("param값은?", keyword);
+  const method = param.get("sortAs");
+  const standard = param.get("sortBy");
+  console.log("sortAs param?", method);
+  console.log("sortBy param?", standard);
 
   const [sortMethod, setSortMethod] = useState("null");
+  const [sortStandard, setSortStandard] = useState("id");
   const [sortedList, setSortedList] = useState("");
 
   const changeUserPerPage = (e) => {
@@ -32,54 +44,122 @@ const Filter = ({
     }
   };
 
-  useEffect(() => {
-    console.log(users);
-    navigate(`/manage/member?page=${currentPage}&sort=${sortMethod}`);
-  }, [sortMethod]);
-
-  console.log(sortMethod);
-
   // 오름차순(ascend), 내림차순(descend)
+  // default : id 기준
   const defaultAscend = (e) => {
-    if (e.target.value === "오름차순") {
-      setUsers(() => [...users].sort((a, b) => (a.id > b.id ? -1 : 1)));
+    if (e.target.value === "ascend") {
+      setUsers(() => [...users].sort((a, b) => (a.id < b.id ? -1 : 1)));
       setSortMethod("오름차순");
-    } else if (e.target.value === "내림차순") {
+    } else if (e.target.value === "descend") {
       setUsers(() => [...users].sort((b, a) => (a.id > b.id ? -1 : 1)));
       setSortMethod("내림차순");
     }
   };
-  // 이름 기준
-  const filterByName = () => {
+
+  useEffect(() => {
+    console.log(users);
+    navigate(
+      `/manage/member?page=${currentPage}&sortAs=${sortMethod}&sortBy=${sortStandard}`
+    );
+  }, [currentPage, sortMethod, sortStandard]);
+
+  console.log("sortMethod :", sortMethod);
+  console.log(" sortStandard :", sortStandard);
+
+  // select sort standard
+  const onChangeStandard = () => {
     let filteredList;
-    if (sortMethod === "오름차순") {
-      filteredList = setUsers(
-        [...users].sort((a, b) => (a.name > b.name ? -1 : 1))
-      );
-      setSortedList(filteredList);
-    } else if (sortMethod === "내림차순") {
-      filteredList = setUsers(
-        [...users].sort((b, a) => (a.name > b.name ? -1 : 1))
-      );
-      setSortedList(filteredList);
+
+    if (sortMethod === "ascend") {
+      switch (sortStandard) {
+        case "name":
+          setSortStandard("name");
+          filteredList = setUsers(
+            [...users].sort((a, b) => (a.id > b.id ? 1 : -1))
+          );
+          setSortedList(filteredList);
+          break;
+        case "birth":
+          setSortStandard("birth");
+          filteredList = setUsers(
+            [...users].sort((a, b) => (a.birthday > b.birthday ? 1 : -1))
+          );
+          setSortedList(filteredList);
+          break;
+        case "login":
+          setSortStandard("login");
+          filteredList = setUsers(
+            [...users].sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1))
+          );
+          setSortedList(filteredList);
+          break;
+      }
+    } else if (sortMethod === "descend") {
+      switch (sortStandard) {
+        case "name":
+          setSortStandard("name");
+          filteredList = setUsers(
+            [...users].sort((b, a) => (a.id > b.id ? 1 : -1))
+          );
+          setSortedList(filteredList);
+          break;
+        case "birth":
+          setSortStandard("birth");
+          filteredList = setUsers(
+            [...users].sort((b, a) => (a.birthday > b.birthday ? 1 : -1))
+          );
+          setSortedList(filteredList);
+          break;
+        case "login":
+          setSortStandard("login");
+          filteredList = setUsers(
+            [...users].sort((b, a) => (a.createdAt > b.createdAt ? 1 : -1))
+          );
+          setSortedList(filteredList);
+          break;
+      }
     }
   };
-  // 생일 기준
-  const filterByBirth = () => {};
 
-  // 로그인 시점 기준
-  // const filterByLogin = (e) => {
-  //   if (e.target.value === "latest") {
-  //     setUsers([...users].sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1)));
-  //   }
-  //   if (e.target.value === "olden") {
-  //     setUsers([...users].sort((b, a) => (a.createdAt > b.createdAt ? -1 : 1)));
+  // useEffect(() => {
+  //   console.log(users);
+  //   navigate(`/manage/member?page=${currentPage}&sort=${sortMethod}&isAscend=${isAscend}`);
+  // }, [sortMethod, isAscend]);
+
+  // console.log(sortMethod);
+
+  // const filterByName = (e) => {
+  //   if (e.target.value === "number") {
+  //     setSortMethod("number");
+  //   } else if (e.target.value === "name") {
+  //     setSortMethod("name");
+  //   } else if (e.target.value === "birth") {
+  //     setSortMethod("birth");
+  //   } else {
+  //     setSortMethod("login");
   //   }
   // };
 
-  // useEffect(() => {
-  //   filterByName();
-  // }, [users]);
+  // const defaultAscend = (e) => {
+  //   if (e.target.value === "오름차순") {
+  //     setIsAscend(true);
+  //   } else {
+  //     setIsAscend(false);
+  //   }
+
+  //   if (sortBy === "number" && sortAs === "true") {
+  //     setUsers([...users].sort((a, b) => (a.id > b.id ? -1 : 1)));
+  //   } else if (sortBy === "number" && sortAs === "false") {
+  //     setUsers([...users].sort((b, a) => (a.id > b.id ? -1 : 1)));
+  //   }
+  //    else if (sortBy === "name" && sortAs === "true") {
+  //     setUsers([...users].sort((a, b) => (a.name > b.name ? -1 : 1)));
+  //   } else if (sortBy === "name" && sortAs === "false") {
+  //     setUsers([...users].sort((b, a) => (a.name > b.name ? -1 : 1)));
+  //   }
+  // };
+
+  // console.log(sortMethod);
 
   return (
     <ButtonBox>
@@ -88,17 +168,17 @@ const Filter = ({
         <option value={50}>50명씩 보기</option>
       </select>
       {/* sort standard */}
-      <select onChange={filterByName}>
+      <select onChange={onChangeStandard} name="standard">
         <option value={"number"}>회원번호</option>
         <option value={"name"}>이름</option>
         <option value={"birth"}>생일</option>
         <option value={"login"}>최근 로그인</option>
       </select>
       {/* sort method */}
-      <select onChange={defaultAscend}>
+      <select onChange={defaultAscend} name="method">
         <option>나열 방향</option>
-        <option value={"오름차순"}>오름차순</option>
-        <option value={"내림차순"}>내림차순</option>
+        <option value={"ascend"}>오름차순</option>
+        <option value={"descend"}>내림차순</option>
       </select>
     </ButtonBox>
   );

@@ -1,17 +1,19 @@
-import styled from "styled-components";
 import { UserList } from "../../__mock__/user_list";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import PagiNation from "../../components/pagination";
 import Filter from "../../components/filter";
+import styled from "styled-components";
 import { AlignCenter, FlexCenter } from "../../styles/common.style";
 
 const MemberList = () => {
   const [users, setUsers] = useState(UserList());
+
   const [buttonArray, setButtonArray] = useState([0, 1, 2, 3, 4]);
   const [currentPage, setCurrentPage] = useState(1);
   const [userPerPage, setUserPerPage] = useState(20);
+
   const totalPage = Math.ceil(users.length / userPerPage);
+
   const pageNationUserList = [];
   for (let i = 0; i < totalPage; i++) {
     pageNationUserList.push([
@@ -55,13 +57,11 @@ const MemberList = () => {
         </tbody>
       </Table>
       <PagiNation
-        users={users}
         buttonArray={buttonArray}
         setButtonArray={setButtonArray}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         userPerPage={userPerPage}
-        setUserPerPage={setUserPerPage}
         totalPage={totalPage}
         pageNationUserList={pageNationUserList}
         setUserListPerPage={setUserListPerPage}
@@ -86,9 +86,6 @@ const Container = styled.div`
 const Table = styled.table`
   ${FlexCenter}
   flex-direction: column;
-
-  & > tbody {
-  }
 `;
 const Th = styled.th`
   padding: 10px 20px;

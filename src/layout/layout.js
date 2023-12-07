@@ -7,7 +7,7 @@ const Layout = () => {
   return (
     <Wrapper>
       <Title>Manage Page</Title>
-      <Question>어떤 것을 관리하시겠습니까?</Question>
+      {/* <Question>어떤 것을 관리하시겠습니까?</Question> */}
       <ToggleButton />
       <Outlet />
     </Wrapper>
