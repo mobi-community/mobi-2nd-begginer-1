@@ -2,6 +2,7 @@ import { useSearchParams } from "react-router-dom";
 import OneUser from "./OneUser";
 import Pagination from "./Pagination";
 import { useEffect, useState } from "react";
+import styled from "styled-components";
 
 const UserTable = ({ userList }) => {
   //useSearchParams
@@ -9,7 +10,7 @@ const UserTable = ({ userList }) => {
 
   return (
     <>
-      <table>
+      <S.Table>
         <tr>
           <td>아이디</td>
           <td>이름</td>
@@ -20,9 +21,24 @@ const UserTable = ({ userList }) => {
         {userList.map((user, index) => {
           return <OneUser key={user.id} user={user} />;
         })}
-      </table>
+      </S.Table>
     </>
   );
 };
 
 export default UserTable;
+
+const Table = styled.table`
+  margin-top: 50px;
+
+  tr {
+    border: 1px solid grey;
+    td {
+      padding: 5px;
+    }
+  }
+`;
+
+const S = {
+  Table,
+};

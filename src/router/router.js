@@ -3,17 +3,20 @@ import AfterDetailPage from "../Q3/one/after";
 import ModeTogglePage from "../Q3/two";
 import AfterLoginPage from "../Q3/three/after";
 import { ButtonPage } from "../Q3/four";
-import AdminTogglePage from "../AdminTogglePage";
+import AdminTogglePage from "../page/AdminTogglePage";
 import MainPage from "../MainPage";
+import SideMenuLayout from "../layout/SideMenu.js";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainPage />,
-  },
-  {
-    path: "/admin",
-    element: <AdminTogglePage />,
+    element: <SideMenuLayout />,
+    children: [
+      {
+        path: "/admin",
+        element: <AdminTogglePage />,
+      },
+    ],
   },
   {
     path: "/ex/1",
