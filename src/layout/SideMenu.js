@@ -1,18 +1,20 @@
 import styled from "styled-components";
-import { Outlet } from "react-router-dom";
-import { useState } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { ReactComponent as OpenIcon } from "../asset/toggleOpen.svg";
 import { ReactComponent as CloseIcon } from "../asset/toggleClose.svg";
 
-const menuList = [
+const MenuList = [
   {
     title: "회원관리",
     options: [
       {
         subTitle: "회원목록",
+        url: "/user/list",
       },
       {
         subTitle: "회원등록",
+        url: "/user/register",
       },
     ],
   },
@@ -21,17 +23,31 @@ const menuList = [
     options: [
       {
         subTitle: "상품목록",
+        url: "/item/list",
       },
       {
         subTitle: "상품등록",
+        url: "/item/register",
       },
     ],
   },
 ];
 
 const SideMenuLayout = () => {
+  const navigate = useNavigate();
+
   //회원관리
-  const [isToggle, setIsToggle] = useState([false, false]);
+  const [isToggle, setIsToggle] = useState(
+    localStorage.getItem("toggleState")
+      ? localStorage.getItem("toggleState") //로컬 스토리지에 toggleState라는 데이터가 저장되 있을때
+      : [false, false] //없을때 (첫 렌더링)
+  );
+
+  //로컬스토리지에 데이터가 있다면 처음투터 isToggle을 바꿔야 => useState
+  useEffect(() => {
+    console.log(localStorage.getItem("toggleState"));
+    localStorage.setItem("toggleState", JSON.stringify(isToggle));
+  }, [isToggle]);
 
   const onIsToggleChange = (index) => {
     setIsToggle((prev) => {
@@ -44,7 +60,7 @@ const SideMenuLayout = () => {
   return (
     <S.Wrapper>
       <S.SideNavWrapper>
-        {menuList.map((menu, index) => {
+        {MenuList.map((menu, index) => {
           return (
             <S.ToggleSlide>
               <S.ToggleIcon>
@@ -67,14 +83,24 @@ const SideMenuLayout = () => {
                 <S.Text>{menu.title}</S.Text>
                 {isToggle[index] &&
                   menu.options.map((option) => {
-                    return <S.SubMenu>- {option.subTitle}</S.SubMenu>;
+                    return (
+                      <S.SubMenu
+                        onClick={() => {
+                          navigate(option.url);
+                        }}
+                      >
+                        - {option.subTitle}
+                      </S.SubMenu>
+                    );
                   })}
               </S.Menu>
             </S.ToggleSlide>
           );
         })}
       </S.SideNavWrapper>
-      <Outlet />
+      <S.OutletWrapper>
+        <Outlet />
+      </S.OutletWrapper>
     </S.Wrapper>
   );
 };
@@ -90,6 +116,11 @@ const SideNavWrapper = styled.div`
   height: 100vh;
   background-color: skyblue;
   position: fixed;
+`;
+
+const OutletWrapper = styled.div`
+  margin-left: 250px;
+  width: calc(100% - 250px);
 `;
 
 const ToggleSlide = styled.div`
@@ -132,6 +163,7 @@ const S = {
   ToggleSlide,
   ToggleIcon,
   Text,
+  OutletWrapper,
   Menu,
   SubMenu,
 };

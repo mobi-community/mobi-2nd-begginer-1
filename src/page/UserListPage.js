@@ -6,7 +6,7 @@ import { useSearchParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 
-const AdminTogglePage = () => {
+const UserListPage = () => {
   const userList = userData(200);
   const totalLength = userList.length;
   // 페이지네이션 버튼 그룹당 페이지 수
@@ -25,11 +25,9 @@ const AdminTogglePage = () => {
   );
 };
 
-export default AdminTogglePage;
+export default UserListPage;
 
 const Wrapper = styled.div`
-  margin-left: 250px;
-  width: calc(100% - 250px);
   display: flex;
   align-items: center;
   flex-direction: column;

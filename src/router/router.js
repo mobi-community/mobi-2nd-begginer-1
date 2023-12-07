@@ -3,9 +3,11 @@ import AfterDetailPage from "../Q3/one/after";
 import ModeTogglePage from "../Q3/two";
 import AfterLoginPage from "../Q3/three/after";
 import { ButtonPage } from "../Q3/four";
-import AdminTogglePage from "../page/AdminTogglePage";
-import MainPage from "../MainPage";
 import SideMenuLayout from "../layout/SideMenu.js";
+import UserListPage from "../page/UserListPage.js";
+import UserRegisterPage from "../page/UserRegisterPage.js";
+import ItemListPage from "../page/ItemListPage.js";
+import ItemRegisterPage from "../page/ItemRegisterPage.js";
 
 const router = createBrowserRouter([
   {
@@ -13,8 +15,20 @@ const router = createBrowserRouter([
     element: <SideMenuLayout />,
     children: [
       {
-        path: "/admin",
-        element: <AdminTogglePage />,
+        path: "/user/list",
+        element: <UserListPage />,
+      },
+      {
+        path: "/user/register",
+        element: <UserRegisterPage />,
+      },
+      {
+        path: "/item/list",
+        element: <ItemListPage />,
+      },
+      {
+        path: "/item/register",
+        element: <ItemRegisterPage />,
       },
     ],
   },
