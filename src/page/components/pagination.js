@@ -22,7 +22,7 @@ const Pagination = ({totalPosts, limit, page, setPage}) => {
                     disabled={page===1}>
                     &lt;
                 </Button>
-                {Array(5).fill().map((_, i) =>{
+                {numPages >= 5 ? Array(5).fill().map((_, i) =>{
                             return (
                                 <Button
                                     key={i+1} 
@@ -31,7 +31,17 @@ const Pagination = ({totalPosts, limit, page, setPage}) => {
                                     {firstNum+i}
                                 </Button>
                             )
+                }):Array(numPages).fill().map((_, i) =>{
+                    return (
+                        <Button
+                            key={i+1} 
+                            onClick={() => {setPage(firstNum+i)}}
+                            style={{color:page === firstNum+i &&  "white", backgroundColor: page === firstNum+i && "burlywood"}}>
+                            {firstNum+i}
+                        </Button>
+                    )
                 })}
+                
                  <Button 
                     onClick={() => {setPage(page+1); setCurrPage(page);}} 
                     disabled={page===numPages}>

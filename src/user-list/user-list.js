@@ -57,7 +57,7 @@ export const userList = Array(200)
     name: generateRandomName(3),
     birth:`${getRandomData(new Date(1990, 1, 1), new Date(2000,12,31)).getFullYear()}-${getRandomData(new Date(1990, 1, 1), new Date(2000,12,31)).getMonth() + 1}-${getRandomData(new Date(1990, 1, 1), new Date(2000,12,31)).getDate()}`,
     phone: `010-****-${generatePhoneNumber(4)}`,
-    lastestlogin: `${getRandomData(new Date(2023, 1, 1), new Date()).getFullYear()}년 ${getRandomData(new Date(2023, 1, 1), new Date()).getMonth() + 1}월 ${getRandomData(new Date(2023, 1, 1), new Date()).getDate()}일 ${getRandomData(new Date(2023, 1, 1), new Date()).getHours()}:${getRandomData(new Date(2023, 1, 1), new Date()).getMinutes()}:${getRandomData(new Date(2023, 1, 1), new Date()).getSeconds()}:${getRandomData(new Date(2023, 1, 1), new Date()).getMilliseconds()}`,
+    lastestlogin: `${getRandomData(new Date(2023, 1, 1), new Date()).getFullYear()} ${getRandomData(new Date(2023, 1, 1), new Date()).getMonth() + 1} ${getRandomData(new Date(2023, 1, 1), new Date()).getDate()} ${getRandomData(new Date(2023, 1, 1), new Date()).getHours()}:${getRandomData(new Date(2023, 1, 1), new Date()).getMinutes()}:${getRandomData(new Date(2023, 1, 1), new Date()).getSeconds()}:${getRandomData(new Date(2023, 1, 1), new Date()).getMilliseconds()}`,
   }));
 
   //Date.prototype.getHours()
