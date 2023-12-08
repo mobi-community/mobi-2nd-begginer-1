@@ -1,17 +1,16 @@
-const Colors = {
-  main: "#84faa4",
-  dark_green: "#2eb352",
-  light_grey: "#c4c4c4",
+const COLORS = {
+  dark_grey: "#333",
+  light_grey: "#777",
   line_grey: "#787878",
 };
 
-const FontSize = {
+const FONT_SIZE = {
   small: "14px",
   medium: "16px",
   large: "18px",
 };
 
 export const theme = {
-  Colors,
-  FontSize,
+  COLORS,
+  FONT_SIZE,
 };

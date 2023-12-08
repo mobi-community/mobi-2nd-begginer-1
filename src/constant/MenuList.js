@@ -4,6 +4,7 @@ import { ReactComponent as ItemIcon } from "../asset/item.svg";
 export const MENU_LIST = [
   {
     title: "회원관리",
+    baseURL: "user",
     icon: <UserIcon />,
     options: [
       {
@@ -18,6 +19,7 @@ export const MENU_LIST = [
   },
   {
     title: "상품관리",
+    baseURL: "item",
     icon: <ItemIcon />,
     options: [
       {

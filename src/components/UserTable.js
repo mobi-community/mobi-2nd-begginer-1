@@ -3,20 +3,18 @@ import styled from "styled-components";
 
 const UserTable = ({ userList }) => {
   return (
-    <>
-      <S.Table>
-        <tr>
-          <td>아이디</td>
-          <td>이름</td>
-          <td>생년월일</td>
-          <td>핸드폰 번호</td>
-          <td>마지막 로그인 날짜</td>
-        </tr>
-        {userList.map((user, index) => {
-          return <OneUser key={user.id} user={user} />;
-        })}
-      </S.Table>
-    </>
+    <S.Table>
+      <S.Tr>
+        <S.Td>아이디</S.Td>
+        <S.Td>이름</S.Td>
+        <S.Td>생년월일</S.Td>
+        <S.Td>핸드폰 번호</S.Td>
+        <S.Td>마지막 로그인 날짜</S.Td>
+      </S.Tr>
+      {userList.map((user, index) => {
+        return <OneUser key={user.id} user={user} />;
+      })}
+    </S.Table>
   );
 };
 
@@ -33,6 +31,16 @@ const Table = styled.table`
   }
 `;
 
+const Tr = styled.tr`
+  background-color: rgb(200, 200, 200);
+`;
+
+const Td = styled.td`
+  font-weight: 900;
+`;
+
 const S = {
   Table,
+  Tr,
+  Td,
 };

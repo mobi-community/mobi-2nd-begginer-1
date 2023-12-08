@@ -9,6 +9,11 @@ import { flexCenter } from "../style/common";
 const SideMenuLayout = () => {
   const navigate = useNavigate();
 
+  const currentURL = window.location.href;
+  const baseURL = "http://localhost:3000";
+  //현재 url에서 baseURL과 파라미터를 제외한 주소만 가져오기
+  const relativeURL = currentURL.replace(baseURL, "").split("?")[0];
+
   //사이드 메뉴 상태
   const [isToggle, setIsToggle] = useState(
     localStorage.getItem("toggleState")
@@ -29,45 +34,51 @@ const SideMenuLayout = () => {
     });
   };
 
+  //토글이 닫혀있어도 해당 페이지가 화면에 보여지면 토글 오픈하는 useEffect
+  useEffect(() => {
+    MENU_LIST.forEach((menu, index) => {
+      if (relativeURL.includes(menu.baseURL)) {
+        setIsToggle((prev) => {
+          const updatedState = [...prev];
+          updatedState[index] = true;
+          return updatedState;
+        });
+      }
+    });
+  }, [relativeURL]);
+
   return (
     <S.Wrapper>
       <S.SideNavWrapper>
         {MENU_LIST.map((menu, index) => {
           return (
             <S.ToggleSlide>
-              <S.ToggleIcon>
-                {isToggle[index] ? (
-                  <OpenIcon
-                    onClick={() => {
-                      onIsToggleChange(index);
-                    }}
-                  />
-                ) : (
-                  <CloseIcon
-                    onClick={() => {
-                      onIsToggleChange(index);
-                    }}
-                  />
-                )}
-              </S.ToggleIcon>
-
               <S.Menu>
-                <S.Wrapper>
+                <S.Title
+                  onClick={() => {
+                    onIsToggleChange(index);
+                  }}
+                  open={isToggle[index]}
+                >
                   {menu.icon}
                   <S.Text>{menu.title}</S.Text>
-                </S.Wrapper>
-                {isToggle[index] &&
-                  menu.options.map((option) => {
-                    return (
-                      <S.SubMenu
-                        onClick={() => {
-                          navigate(option.url);
-                        }}
-                      >
-                        · {option.subTitle}
-                      </S.SubMenu>
-                    );
-                  })}
+                  {isToggle[index] ? <OpenIcon /> : <CloseIcon />}
+                </S.Title>
+                <S.SubMenuWrapper>
+                  {isToggle[index] &&
+                    menu.options.map((option) => {
+                      return (
+                        <S.SubMenu
+                          onClick={() => {
+                            navigate(option.url);
+                          }}
+                          currentPage={relativeURL === option.url}
+                        >
+                          {option.subTitle}
+                        </S.SubMenu>
+                      );
+                    })}
+                </S.SubMenuWrapper>
               </S.Menu>
             </S.ToggleSlide>
           );
@@ -86,6 +97,16 @@ const Wrapper = styled.div`
   display: flex;
 `;
 
+const Title = styled.div`
+  display: flex;
+  background-color: ${({ open, theme }) =>
+    open ? theme.COLORS.dark_grey : "transparent"};
+  border-radius: 25px;
+  height: 30px;
+  width: 150px;
+  ${flexCenter}
+`;
+
 const SideNavWrapper = styled.div`
   width: 250px;
   height: 100vh;
@@ -93,6 +114,8 @@ const SideNavWrapper = styled.div`
   position: fixed;
   ${flexCenter}
   flex-direction: column;
+  background-color: black;
+  color: white;
 `;
 
 const OutletWrapper = styled.div`
@@ -102,7 +125,7 @@ const OutletWrapper = styled.div`
 
 const ToggleSlide = styled.div`
   width: 200px;
-  height: 250px;
+  height: 150px;
   margin: 20px;
   padding: 40px;
   font-size: x-large;
@@ -118,7 +141,7 @@ const ToggleIcon = styled.div`
 const Text = styled.div`
   font-size: 20px;
   font-weight: 400;
-  margin-left: 10px;
+  margin: 0 10px;
 `;
 
 const Menu = styled.div`
@@ -129,10 +152,25 @@ const Menu = styled.div`
 const SubMenu = styled.div`
   font-size: 18px;
   cursor: pointer;
+  border-bottom: 1px solid
+    ${({ currentPage }) => (currentPage ? "white" : "transparent")};
+  :hover {
+    cursor: pointer;
+    background-color: ${({ theme }) => theme.COLORS.light_grey};
+    transform: scale(1.1);
+  }
+`;
+
+const SubMenuWrapper = styled.div`
+  ${flexCenter};
+  flex-direction: column;
+  margin-top: 10px;
+  gap: 10px;
 `;
 
 const S = {
   Wrapper,
+  Title,
   SideNavWrapper,
   ToggleSlide,
   ToggleIcon,
@@ -140,4 +178,5 @@ const S = {
   OutletWrapper,
   Menu,
   SubMenu,
+  SubMenuWrapper,
 };

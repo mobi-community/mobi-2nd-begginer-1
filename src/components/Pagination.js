@@ -115,16 +115,15 @@ const Wrapper = styled.div`
 `;
 
 const Button = styled.button`
-  background-color: ${({ isFocus }) => (isFocus ? "skyblue" : "white")};
+  background-color: ${({ isFocus, theme }) =>
+    isFocus ? theme.COLORS.light_grey : "white"};
+  color: ${({ isFocus }) => (isFocus ? "white" : "black")};
   width: 30px;
   height: 30px;
   font-size: 15px;
   font-weight: 400;
   border-radius: 50%;
-
-  :hover {
-    border: 1px solid skyblue;
-  }
+  cursor: pointer;
 `;
 
 export const S = {

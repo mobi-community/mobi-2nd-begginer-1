@@ -101,12 +101,12 @@ const Filtering = ({ sortedList, setSortedList, userList }) => {
       {userTableFilterList.map((select, index) => (
         <S.Select name={select.type} onChange={onChangeValue}>
           {select.option.map((option) => (
-            <option
+            <S.Option
               value={option.value}
               selected={searchParamsArr[index] === option.value}
             >
               {option.text}
-            </option>
+            </S.Option>
           ))}
         </S.Select>
       ))}
@@ -118,6 +118,7 @@ export default Filtering;
 
 const Wrapper = styled.div`
   width: 100%;
+  height: 60px;
   ${flexCenter}
   margin-top: 40px;
   gap: 10px;
@@ -129,10 +130,18 @@ const Text = styled.div`
 
 const Select = styled.select`
   font-size: 15px;
+  border-radius: 10px;
+  &:hover {
+    border-width: 2px;
+    cursor: pointer;
+  }
 `;
+
+const Option = styled.option``;
 
 export const S = {
   Wrapper,
   Text,
   Select,
+  Option,
 };
