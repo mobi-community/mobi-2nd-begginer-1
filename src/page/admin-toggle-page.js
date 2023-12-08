@@ -1,12 +1,28 @@
+// [4] **필터링 옵션 만들기**
+
+// - 20개씩 보기, 50개씩 보기
+// - 이름 순, 마지막 로그인 순, 생년월일 순으로 정렬하기
+// - 오름차순 내림차순 정렬하기
+
+// 단, 모든 조건의 필터링은 반드시 모두 뒤로가기가 지원 되어야합니다.
+
+// **ex)**
+
+// **20개씩 → 50개씩 보기, 이름순, 오름차순 → 내림차순(뒤로가기) →  50개씩 보기, 이름순, 오름차순**
+
+
+
 import { useState } from "react";
 import { userList } from "../user-list/user-list";
 import Posts from "./components/posts";
 import Pagination from "./components/pagination";
+import styled from "styled-components";
+import { useSearchParams } from "react-router-dom";
 
 const Admin = () => {
 
   // let history = useHistory();
-
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const [List,setList] = useState(userList);
 
@@ -47,7 +63,13 @@ const Admin = () => {
     setList(copy)
     setOption(e.target.value)
   }
+    searchParams.set(e.target.value, e.target.value)
+    setSearchParams(searchParams)
+    const id = searchParams.get(e.target.value);
+    console.log(id)
  }
+
+
  
  const onChangeAscending = (e)=> {
   if(e.target.value === "오름차순"){
@@ -96,7 +118,8 @@ const Admin = () => {
  console.log(test)
 
   return (
-    <>   
+    <Wrapper>
+      <Content>   
     <button onClick={onShowTwentyList}>20개</button>
     <button onClick={onShowFiftyList}>50개</button>
     <select onChange={onChangeSelected}>
@@ -110,8 +133,17 @@ const Admin = () => {
     </select>
     <Posts info={postData(List)}/>
     <Pagination totalPosts={List.length} limit={limit} page={page} setPage={setPage}></Pagination>
-    </>
+    </Content>
+    </Wrapper>
   );
 };
 
 export default Admin;
+
+const Wrapper = styled.div`
+  display:flex;
+  justify-content:center;
+`;
+const Content = styled.div`
+  margin-top:100px;
+`;

@@ -1,70 +1,66 @@
-# Getting Started with Create React App
+2023.12.04 ~ 2023.12.08
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+### 과제: Amdin Toggle Page 만들기
 
-In the project directory, you can run:
+**요구사항**
 
-### `npm start`
+**react, css library, react-router-dom 구현을 위한 기본적인 라이브러리 외 그 어떠한 라이브러리도 사용할 수 없습니다**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**[1]  유저 목록 동적으로 생성하기**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- 고유번호, 이름, 생년월일, 연락처, 마지막 로그인으로 이루어진 200명의 user 목록을 동적으로 생성할 것, 연락처는 반드시 “010-0000-000”으로 이루어져야하며 생년월일을 “YYYY-MM-DD”형태로 파싱되어야 합니다.
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**[2] 회원 목록 테이블 만들기**
 
-### `npm run build`
+위 데이터를 통해 표 형태로 구독이 가능한 회원 목록 보이기, 페이지네이션과 필터링도 구현해야합니다. 데이터에는 마지막 로그인, 생년월일, 연락처, 이름, 고유번호가 모두 노출되어야하며 전화번호의 중간 자리는 모두 ***로 보여야합니다.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+ex)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1 | 김성용 | 2003-03-03 | 010-****-1234 | 2023.03.02.13:52:36:22
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+**[3] 페이지 네이션 만들기**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- 하나의 페이지당 총 20개의 유저 목록이 보여져야하며 이는 5개 단위의 페이지 네이션으로 보여져야 합니다. 마지막 페이지는 [10]입니다.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**ex)**
+- **<< < [1] [2] [3] [4] [5] > >>**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- 페이지 번호는 뒤로가기가 지원되어야하며 선택된 페이지에는 포커스가 이루져야합니다.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+[4] **필터링 옵션 만들기**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- 20개씩 보기, 50개씩 보기
+- 이름 순, 마지막 로그인 순, 생년월일 순으로 정렬하기
+- 오름차순 내림차순 정렬하기
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+단, 모든 조건의 필터링은 반드시 모두 뒤로가기가 지원 되어야합니다.
 
-### Code Splitting
+**ex)**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+**20개씩 → 50개씩 보기, 이름순, 오름차순 → 내림차순(뒤로가기) →  50개씩 보기, 이름순, 오름차순**
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+[5] **토글 슬라이드가 가능한 사이드 메뉴 만들기**
 
-### Making a Progressive Web App
+- **회원관리**
+    - 회원목록 (위에서 구현한 회원 목록 표가 나와야함)
+    - 회원등록 (빈화면, 구분만 가능하도록 “회원등록” 글씨만 정중앙에 노출)
+- **상품관리**
+    - 상품목록 (빈화면)
+    - 상품등록 (빈화면)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+**단, 모든 토글은 뒤로가기가 지원해야하며, 새로고침 및 뒤로가기 시 열어두었던 
+토글은 닫혀서 안됩니다.**
 
-### Advanced Configuration
+**(1)** 회원관리(열림) → 회원목록 → 회원등록 → 뒤로기기 → **회원관리가 열린상태로 회원목록**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**(2)** 회원관리(열림) → 회원목록 → 상품등록(열림) → 상품목록 → 뒤로가기 → 
+     **회원관리, 상품관리가 모두 열려있어야 함**
