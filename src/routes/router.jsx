@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import ClientPage from '../pages/client-page';
 import Layout from '../components/layout/layout';
+import ClientAdd from '../pages/client-page/components/clientAdd';
 
 const router = createBrowserRouter([
     {
@@ -10,6 +11,10 @@ const router = createBrowserRouter([
             {
                 path: '/',
                 element: <ClientPage />,
+            },
+            {
+                path: '/add',
+                element: <ClientAdd />,
             },
         ],
     },

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 const SlideToggle = () => {
@@ -16,6 +17,15 @@ const SlideToggle = () => {
         const storedValue = localStorage.getItem('isShowProductList');
         return storedValue ? JSON.parse(storedValue) : false;
     });
+
+    const navigate = useNavigate();
+
+    const onGoClientList = () => {
+        navigate('/');
+    };
+    const onGoClientAdd = () => {
+        navigate('/add');
+    };
 
     const onClickHover = () => {
         // 상태 토글 및 localStorage에 저장
@@ -41,14 +51,20 @@ const SlideToggle = () => {
     return (
         <>
             <Wrapper>
-                <p onClick={onClickHover}>회원관리</p>
+                <ContentBox>
+                    <img src="public/teamwork.png" />
+                    <p onClick={onClickHover}>회원관리</p>
+                </ContentBox>
                 <ContentWrapper show={isShowClientList}>
                     <ul>
-                        <li>회원목록</li>
-                        <li>회원등록</li>
+                        <li onClick={onGoClientList}>회원목록</li>
+                        <li onClick={onGoClientAdd}>회원등록</li>
                     </ul>
                 </ContentWrapper>
-                <p onClick={onClickProductHover}>상품관리</p>
+                <ContentBox>
+                    <img src="public/product.png" />
+                    <p onClick={onClickProductHover}>상품관리</p>
+                </ContentBox>
                 <ContentWrapper show={isShowProductList}>
                     <ul>
                         <li>상품목록</li>
@@ -67,13 +83,14 @@ const Wrapper = styled.div`
     position: absolute;
     left: 100px;
     width: 172px;
-    height: 500px;
+    height: 750px;
+    padding-top: 10px;
 
     p {
         font-size: 20px;
         font-weight: 800;
         margin: 0;
-        padding-top: 20px;
+        padding-left: 5px;
         &:hover {
             cursor: pointer;
         }
@@ -92,8 +109,21 @@ const ContentWrapper = styled.div`
         & > li {
             &:hover {
                 background-color: #d9d9d9;
+                cursor: pointer;
             }
         }
+    }
+`;
+
+const ContentBox = styled.div`
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    padding-left: 30px;
+
+    & > img {
+        width: 34px;
+        height: 34px;
     }
 `;
 /*
