@@ -1,5 +1,6 @@
 const OneUser = ({ user }) => {
   const { id, name, birthDate, phoneNumber, lastLoginDate } = user;
+
   return (
     <tr>
       <td>{id}</td>

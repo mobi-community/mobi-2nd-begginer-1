@@ -2,9 +2,9 @@ import UserTable from "../components/UserTable";
 import { userData } from "../data/user";
 import Pagination from "../components/Pagination";
 import Filtering from "../components/Filtering";
-import { useSearchParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styled from "styled-components";
+import { flexCenter } from "../style/common";
 
 const UserListPage = () => {
   const userList = userData(200);
@@ -28,8 +28,7 @@ const UserListPage = () => {
 export default UserListPage;
 
 const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
+  ${flexCenter}
   flex-direction: column;
 `;
 

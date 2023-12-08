@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
+import { USER_TABLE_FILTER } from "../constant/UserTableFilter";
+import { flexCenter } from "../style/common";
 
 const Filtering = ({ sortedList, setSortedList, userList }) => {
+  const userTableFilterList = USER_TABLE_FILTER;
+
   const [searchParams, setSearchParams] = useSearchParams();
 
   const onChangeValue = (e) => {
@@ -88,36 +92,24 @@ const Filtering = ({ sortedList, setSortedList, userList }) => {
     setSortedList(slicedData);
   };
 
+  //현재 선택된 옵션 값
+  const searchParamsArr = [Number(perPage), sortBy, orderBy];
+
   return (
     <S.Wrapper>
       <S.Text>filter options</S.Text>
-      <S.Select name="perPage" onChange={onChangeValue}>
-        <option value="20" selected={Number(perPage) === 20}>
-          20개씩
-        </option>
-        <option value="50" selected={Number(perPage) === 50}>
-          50개씩
-        </option>
-      </S.Select>
-      <S.Select name="sortBy" onChange={onChangeValue}>
-        <option value="name" selected={sortBy === "name"}>
-          이름 순
-        </option>
-        <option value="recentLogin" selected={sortBy === "recentLogin"}>
-          마지막 로그인 순
-        </option>
-        <option value="birth" selected={sortBy === "birthDate"}>
-          생년월일 순
-        </option>
-      </S.Select>
-      <S.Select name="orderBy" onChange={onChangeValue}>
-        <option value="ascend" selected={orderBy === "ascend"}>
-          오름차순
-        </option>
-        <option value="descend" selected={orderBy === "descend"}>
-          내림차순
-        </option>
-      </S.Select>
+      {userTableFilterList.map((select, index) => (
+        <S.Select name={select.type} onChange={onChangeValue}>
+          {select.option.map((option) => (
+            <option
+              value={option.value}
+              selected={searchParamsArr[index] === option.value}
+            >
+              {option.text}
+            </option>
+          ))}
+        </S.Select>
+      ))}
     </S.Wrapper>
   );
 };
@@ -126,9 +118,7 @@ export default Filtering;
 
 const Wrapper = styled.div`
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${flexCenter}
   margin-top: 40px;
   gap: 10px;
 `;

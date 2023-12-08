@@ -10,6 +10,7 @@ import { useSearchParams } from "react-router-dom";
 
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { flexCenter } from "../style/common";
 
 const Pagination = ({ totalLength, pagesPerGroup }) => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -110,9 +111,7 @@ export default Pagination;
 const Wrapper = styled.div`
   width: 500px;
   height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${flexCenter}
 `;
 
 const Button = styled.button`

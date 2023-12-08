@@ -3,49 +3,21 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { ReactComponent as OpenIcon } from "../asset/toggleOpen.svg";
 import { ReactComponent as CloseIcon } from "../asset/toggleClose.svg";
-
-const MenuList = [
-  {
-    title: "회원관리",
-    options: [
-      {
-        subTitle: "회원목록",
-        url: "/user/list",
-      },
-      {
-        subTitle: "회원등록",
-        url: "/user/register",
-      },
-    ],
-  },
-  {
-    title: "상품관리",
-    options: [
-      {
-        subTitle: "상품목록",
-        url: "/item/list",
-      },
-      {
-        subTitle: "상품등록",
-        url: "/item/register",
-      },
-    ],
-  },
-];
+import { MENU_LIST } from "../constant/MenuList";
+import { flexCenter } from "../style/common";
 
 const SideMenuLayout = () => {
   const navigate = useNavigate();
 
-  //회원관리
+  //사이드 메뉴 상태
   const [isToggle, setIsToggle] = useState(
     localStorage.getItem("toggleState")
-      ? localStorage.getItem("toggleState") //로컬 스토리지에 toggleState라는 데이터가 저장되 있을때
+      ? JSON.parse(localStorage.getItem("toggleState")) //로컬 스토리지에 toggleState라는 데이터가 저장되 있을때
       : [false, false] //없을때 (첫 렌더링)
   );
 
   //로컬스토리지에 데이터가 있다면 처음투터 isToggle을 바꿔야 => useState
   useEffect(() => {
-    console.log(localStorage.getItem("toggleState"));
     localStorage.setItem("toggleState", JSON.stringify(isToggle));
   }, [isToggle]);
 
@@ -60,7 +32,7 @@ const SideMenuLayout = () => {
   return (
     <S.Wrapper>
       <S.SideNavWrapper>
-        {MenuList.map((menu, index) => {
+        {MENU_LIST.map((menu, index) => {
           return (
             <S.ToggleSlide>
               <S.ToggleIcon>
@@ -80,7 +52,10 @@ const SideMenuLayout = () => {
               </S.ToggleIcon>
 
               <S.Menu>
-                <S.Text>{menu.title}</S.Text>
+                <S.Wrapper>
+                  {menu.icon}
+                  <S.Text>{menu.title}</S.Text>
+                </S.Wrapper>
                 {isToggle[index] &&
                   menu.options.map((option) => {
                     return (
@@ -89,7 +64,7 @@ const SideMenuLayout = () => {
                           navigate(option.url);
                         }}
                       >
-                        - {option.subTitle}
+                        · {option.subTitle}
                       </S.SubMenu>
                     );
                   })}
@@ -114,8 +89,10 @@ const Wrapper = styled.div`
 const SideNavWrapper = styled.div`
   width: 250px;
   height: 100vh;
-  background-color: skyblue;
+  border: 1px solid black;
   position: fixed;
+  ${flexCenter}
+  flex-direction: column;
 `;
 
 const OutletWrapper = styled.div`
@@ -126,7 +103,6 @@ const OutletWrapper = styled.div`
 const ToggleSlide = styled.div`
   width: 200px;
   height: 250px;
-  background-color: #fff;
   margin: 20px;
   padding: 40px;
   font-size: x-large;
@@ -140,8 +116,9 @@ const ToggleIcon = styled.div`
 `;
 
 const Text = styled.div`
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 400;
+  margin-left: 10px;
 `;
 
 const Menu = styled.div`
@@ -150,10 +127,7 @@ const Menu = styled.div`
 `;
 
 const SubMenu = styled.div`
-  /* width: 150px;
-  height: 150px; */
-  /* color: gray; */
-  font-size: 14px;
+  font-size: 18px;
   cursor: pointer;
 `;
 

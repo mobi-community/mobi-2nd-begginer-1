@@ -1,12 +1,7 @@
-import { useSearchParams } from "react-router-dom";
 import OneUser from "./OneUser";
-import Pagination from "./Pagination";
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const UserTable = ({ userList }) => {
-  const [searchParams, setSearchParams] = useSearchParams();
-
   return (
     <>
       <S.Table>
