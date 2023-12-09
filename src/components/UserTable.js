@@ -21,7 +21,7 @@ const UserTable = ({ userList }) => {
 export default UserTable;
 
 const Table = styled.table`
-  margin-top: 50px;
+  margin-top: 10px;
 
   tr {
     border: 1px solid grey;
