@@ -75,7 +75,7 @@ https://github.com/mobi-community/mobi-2th-begginer-1/assets/125418818/292d2566-
 
 ### [4] 필터링 옵션 만들기
 
-사용자가 옵션을 선택할 수 있게 <select/>와 <option/>태그를 사용하였습니다.
+사용자가 옵션을 선택할 수 있게 `<select/>`와 `<option/>`태그를 사용하였습니다.
 필터링 기능 역시 뒤로 가기가 지원되어야 하기 떄문에 useSearchParam을 활용하여 쿼리 스트링을 <option/>태그의 value값으로 정의합니다.
 
 <img width="500" alt="스크린샷 2023-12-09 오후 1 01 02" src="https://github.com/mobi-community/mobi-2th-begginer-1/assets/134574485/2f8ec36d-b462-42b9-ae83-a65bf09d4dfb">
