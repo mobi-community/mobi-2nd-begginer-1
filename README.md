@@ -2,6 +2,11 @@
 
 ### 과제: Amdin Toggle Page 만들기
 
+완성 페이지
+
+![전체 페이지](https://github.com/mobi-community/mobi-2th-begginer-1/assets/110034416/d01ae131-bf35-4a58-b8e4-3a3f7fc3ff6e)
+
+
 **요구사항**
 
 **react, css library, react-router-dom 구현을 위한 기본적인 라이브러리 외 그 어떠한 라이브러리도 사용할 수 없습니다**
@@ -60,7 +65,7 @@ ex)
 4. 뒤로가기 지원 :negative_squared_cross_mark:
 ---
 
-[5] **토글 슬라이드가 가능한 사이드 메뉴 만들기**
+**12월 8일 5일차 [5]토글 슬라이드가 가능한 사이드 메뉴 만들기**
 
 - **회원관리**
     - 회원목록 (위에서 구현한 회원 목록 표가 나와야함)
@@ -79,3 +84,14 @@ ex)
 
  1. 토글 슬라이드 만들기 :smile:
  2. 뒤로가기 지원 :negative_squared_cross_mark:    
+
+
+**[6] 컴포넌트 구조 나누기에 대하여 생각해보기**<br>
+상준 - 
+
+수현 - 
+
+**[7] 프로젝트 회고**<br>
+상준 - 
+
+수현 - 
