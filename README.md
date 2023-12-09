@@ -54,4 +54,18 @@
 <img width="1436" alt="스크린샷 2023-12-09 오후 12 40 54" src="https://github.com/mobi-community/mobi-2th-begginer-1/assets/125418818/6b017965-5e2d-41fe-b0a0-7c8f74143651">
 
 쿼리 스트링을 사용하여 필터, 페이지가 바뀔 때마다 url이 변경되도록 하여 뒤로가기 기능이 잘 지원되도록 하였습니다.
+
 https://github.com/mobi-community/mobi-2th-begginer-1/assets/125418818/292d2566-1b4b-45b0-b9f4-6dec9d27e4b9
+
+<img width="547" alt="스크린샷 2023-12-09 오후 1 00 47" src="https://github.com/mobi-community/mobi-2th-begginer-1/assets/125418818/6e793447-19c3-488a-945c-8cc15eba00bc">
+
+<img width="598" alt="스크린샷 2023-12-09 오후 1 00 56" src="https://github.com/mobi-community/mobi-2th-begginer-1/assets/125418818/a4403c6d-a271-40d5-b361-625f093c93c0">
+
+<img width="817" alt="스크린샷 2023-12-09 오후 1 01 02" src="https://github.com/mobi-community/mobi-2th-begginer-1/assets/125418818/4c54f708-cc25-4c31-bcfc-86c3260de5f6">
+
+<img width="478" alt="스크린샷 2023-12-09 오후 1 02 35" src="https://github.com/mobi-community/mobi-2th-begginer-1/assets/125418818/5b91bf5e-3232-4b8d-93ba-b8983d1f4620">
+
+
+https://github.com/mobi-community/mobi-2th-begginer-1/assets/125418818/8a786d0c-82ca-4f93-97d4-f55f109b32a7
+
+
