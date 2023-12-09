@@ -8,7 +8,6 @@ import { flexCenter } from "../style/common";
 
 const SideMenuLayout = () => {
   const navigate = useNavigate();
-
   const currentURL = window.location.href;
   const baseURL = "http://localhost:3000";
   //현재 url에서 baseURL과 파라미터를 제외한 주소만 가져오기

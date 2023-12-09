@@ -1,13 +1,3 @@
-//고유번호 : 1 ~
-//이름 : 성 + 이름 ('김','이','박','최','오') + 이름
-//생년월일 (1950 ~ 2023, 1 ~ 12, 1 ~ 31 )
-//=> 2월 28, 1,3,5,7,9,10,12 => 31
-//연락처 : 010 - **** -****
-//마지막 로그인 :
-
-// // 시작 날짜 ~ 종료 날짜
-// getRandomDate(new Date(2022, 1, 1), new Date());
-
 //이름 목데이터
 const firstName = ["김", "이", "박", "최", "오", "강", "신"];
 const lastName = [
@@ -27,9 +17,6 @@ const lastName = [
 
 //랜덤 날짜 생성
 function makeRandomDate(startDate, endDate) {
-  // const startDate = new Date("2023-01-01");
-  // const endDate = new Date();
-
   const randomTime =
     startDate.getTime() +
     Math.random() * (endDate.getTime() - startDate.getTime());

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import { USER_TABLE_FILTER } from "../constant/UserTableFilter";
@@ -9,6 +9,7 @@ const Filtering = ({ sortedList, setSortedList, userList }) => {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
+  //선택된 옵션으로 쿼리스트링 변경
   const onChangeValue = (e) => {
     searchParams.set(e.target.name, e.target.value);
     setSearchParams(searchParams);
@@ -19,8 +20,6 @@ const Filtering = ({ sortedList, setSortedList, userList }) => {
   const currentPage = searchParams.get("page") || 1;
   const perPage = searchParams.get("perPage") || 20;
 
-  //데이터 나누기
-
   //현재 페이지에 보이는 콘텐츠 리스트
   const sliceDataByPerPage = (list) => {
     const currentFirstIndex = (currentPage - 1) * perPage;
@@ -29,6 +28,7 @@ const Filtering = ({ sortedList, setSortedList, userList }) => {
     return slicedData;
   };
 
+  //렌더링 될 떄 sortBy 옵션을 파악해서 해당 필터링 함수 실행
   useEffect(() => {
     if (sortBy === "name") {
       SortByName();

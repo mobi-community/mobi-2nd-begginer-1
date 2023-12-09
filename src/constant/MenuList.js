@@ -1,6 +1,7 @@
 import { ReactComponent as UserIcon } from "../asset/user.svg";
 import { ReactComponent as ItemIcon } from "../asset/item.svg";
 
+//토글 사이드바 리스트
 export const MENU_LIST = [
   {
     title: "회원관리",

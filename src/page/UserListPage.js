@@ -11,6 +11,7 @@ const UserListPage = () => {
   const totalLength = userList.length;
   // 페이지네이션 버튼 그룹당 페이지 수
   const pagesPerGroup = 5;
+  //필터를 통해 정렬, 정제된 유저 목록을 관리
   const [sortedList, setSortedList] = useState(userList);
   return (
     <S.Wrapper>
