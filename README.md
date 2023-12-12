@@ -86,6 +86,12 @@ useParams, useSearchParams 훅을 사용하여 뒤로가기를 구현하려고 �
 - after
 
 [사례 02]
+todoList에서 props 드릴링 및 부모가 알 필요가 없는 상태를 context를 톧해 관리 했습니다.
+
+<div>
+  <img width="1098" src="https://github.com/mobi-community/mobi-2th-begginer-1/assets/127207625/65575f34-f68d-4918-9a6f-12a3f904bb22"> 
+</div>
+
 페이지네이션과 필터 등 다양한 기능을 하는 코드들이 한 파일 안에 적혀 있어 가독성이 좋지 않습니다. 한 페이지에는 한 가지의 기능만을 분리하는 것이 읽기에도 유지보수를 하기에도 용이하므로
 관심사에 따라 분리를 해주는 것이 좋습니다.
 
@@ -102,6 +108,13 @@ useParams, useSearchParams 훅을 사용하여 뒤로가기를 구현하려고 �
 </p>
 
 [사례 03]
+ref를 사용하기 이전에 state를 정의하고 onChange 함수를 사용하여 ContentBox의 값을 업데이트 하는 방식으로 코드를 작성하였지만, 이렇게 코드를 작성할 경우 ContentBox의 값이 변경될 떄 마다 상태가
+변경되고 리렌더 되는 문제가 발생하여 ref를 사용하여 상태를 최적화 시켰습니다.
+
+<div>
+  <img width="1098" src="https://github.com/mobi-community/mobi-2th-begginer-1/assets/127207625/4ffb3fd5-22a8-4e3c-bc64-e45dfee7bd24">
+</div>
+
 상태의 최적화가 제대로 이뤄지지 않아 props의 전달이 너무 많아진 사례입니다. 상태명에 '페이지'가 들어간 것들은 전부 페이지네이션과 관련된 상태들로 부모와 filter 파일에선 굳이 알 필요가 없습니다.
 아래 코드를 보면 userListPerPage를 map 돌리는 과정에서 필요한 상태들이 페이지네이션으로 들어가지 못하고 상위 폴더로 나와 있습니다.
 이 부분을 user_table.js로 분리하게 되면 부모로부터 자식이 과도한 props의 전달 받는 것을 줄일 수 있습니다.
