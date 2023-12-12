@@ -4,9 +4,11 @@ import ManageMembers from "../pages/member";
 import ManageProducts from "../pages/product";
 import HomePage from "../pages/homepage/homepage";
 import RegisterMember from "../pages/member/register_member";
+import TodoList from "../todoList";
 
 const router = createBrowserRouter([
   { path: "/", element: <HomePage /> },
+  { path: "/todoList", element: <TodoList /> },
   {
     path: "/manage",
     element: <Layout />,
