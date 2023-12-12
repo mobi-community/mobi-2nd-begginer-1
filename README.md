@@ -69,3 +69,64 @@ useParams, useSearchParams 훅을 사용하여 뒤로가기를 구현하려고 �
 뒤로가기 안 되고 새로고침 시 토글 닫힘
 
 #### 06. 컴포넌트 구조 나누기에 대하여 생각해보기
+
+1. 가독성이 좋지 않을 때
+2. 관심사 분리를 해야할 때
+3. 상태를 최적화 해야할 때
+4. 재사용이 되는 컴포넌트일 때
+
+사례를 만들어 컴포넌트 구조에 대해 생각해보는 부분은 따로 폴더를 만들어 넣었고 "/todoList" 경로로 추가되어 있습니다.
+아래는 admin-toogle-page에서 컴포넌트 구조에 대해 생각해 본 부분들입니다 :
+
+[사례 01]
+특정 배열을 map 돌리는 부분이 들어가 있다면 가독성이 좋지 않을 수 있습니다. 이럴 때에는 map 부분을 따로 분리시키는 방법을 고려해볼 수 있는데 이와 마찬가지로 특정 코드가 반복된다면
+이를 압축시킬 수 있는지 한 번 고민해보게 됩니다.
+
+- before
+- after
+
+[사례 02]
+페이지네이션과 필터 등 다양한 기능을 하는 코드들이 한 파일 안에 적혀 있어 가독성이 좋지 않습니다. 한 페이지에는 한 가지의 기능만을 분리하는 것이 읽기에도 유지보수를 하기에도 용이하므로
+관심사에 따라 분리를 해주는 것이 좋습니다.
+
+- before
+<div>
+  <img width="1098" alt="2-01" src="https://github.com/mobi-community/mobi-2th-begginer-1/assets/134191817/b393e033-af95-4415-9d8d-167e13c53e38">
+  <img width="1098" alt="2-02" src="https://github.com/mobi-community/mobi-2th-begginer-1/assets/134191817/31087e9d-2498-456c-a22b-e434c69f47ba">
+  <img width="683" alt="2-03" src="https://github.com/mobi-community/mobi-2th-begginer-1/assets/134191817/065884b8-35cc-4e33-b57d-6ec41d6afb26">
+</div>
+
+- after -
+<p align="center">
+<img width="629" alt="2-04" src="https://github.com/mobi-community/mobi-2th-begginer-1/assets/134191817/4803edec-29b6-4894-ac95-e2661e12e2c6">
+</p>
+
+[사례 03]
+상태의 최적화가 제대로 이뤄지지 않아 props의 전달이 너무 많아진 사례입니다. 상태명에 '페이지'가 들어간 것들은 전부 페이지네이션과 관련된 상태들로 부모와 filter 파일에선 굳이 알 필요가 없습니다.
+아래 코드를 보면 userListPerPage를 map 돌리는 과정에서 필요한 상태들이 페이지네이션으로 들어가지 못하고 상위 폴더로 나와 있습니다.
+이 부분을 user_table.js로 분리하게 되면 부모로부터 자식이 과도한 props의 전달 받는 것을 줄일 수 있습니다.
+
+- before
+<div>
+  <img width="631" alt="03-00" src="https://github.com/mobi-community/mobi-2th-begginer-1/assets/134191817/78ea0f8e-a012-49ef-9df5-411d48f8f1d6">
+  <img width="631" alt="03-1" src="https://github.com/mobi-community/mobi-2th-begginer-1/assets/134191817/23bbc647-e07f-42ff-97e2-6309baf9b0da">
+</div>
+
+- after
+<div>
+  <img width="631" alt="03-after" src="https://github.com/mobi-community/mobi-2th-begginer-1/assets/134191817/fc6b0b7a-1116-40ab-89b6-e1e6453e2c64">
+  <img width="629" alt="2-04" src="https://github.com/mobi-community/mobi-2th-begginer-1/assets/134191817/4803edec-29b6-4894-ac95-e2661e12e2c6">
+</div>
+
+[사례 04]
+재사용이 되는 컴포넌트라면 상태도 전역으로 관리하는 것처럼 컴포넌트도 전역으로 사용할 수 있도록 컴포넌트화하는 것이 좋습니다.
+최상위 폴더에 분리시켜 import하는 것이 전체적인 코드의 길이도 줄어들어 가독성이 좋아질 뿐 아니라 유지 보수에도 용이합니다.
+
+아래와 같이 userList는 여러 파일에서 재사용이 됩니다. 아래 코드가 모든 파일마다 들어가 있다면 코드의 길이도 너무 길어지고
+아래의 코드가 각각 페이지네이션과 필터 파일에 들어간다면 정작 어떤 코드가 페이지네이션/필터의 기능을 하는 코드인지 이해하기 어려워집니다.
+따라서 임의의 user 배열을 생성하는 함수와 그 함수를 호출해 userList를 만들어내는 코드들을 전역으로 관리할 수 있도록 최상위 폴더 components에 분리시켰습니다.
+
+- after
+<p align="center">
+<img width="1193" alt="04-1" src="https://github.com/mobi-community/mobi-2th-begginer-1/assets/134191817/cb7beed4-5ab6-41b0-a20d-9a58bdb6f3ad">
+</p>
